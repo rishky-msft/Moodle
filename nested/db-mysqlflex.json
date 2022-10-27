@@ -1,0 +1,105 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "moodleCommon": {
+          "metadata": {
+              "description": "Common Moodle values"
+          },
+          "type": "object"
+      },
+      "serverEdition": {
+        "type": "string",
+        "defaultValue": "Burstable",
+        "metadata": {
+          "description": "The tier of the particular SKU, e.g. Burstable, GeneralPurpose, MemoryOptimized. High Availability is available only for GeneralPurpose and MemoryOptimized sku."
+        }
+      },
+      "skuName": {
+        "type": "string",
+        "defaultValue": "Standard_B1ms",
+        "metadata": {
+          "description": "The name of the sku, e.g. Standard_D32ds_v4."
+        }
+      },
+      "storageSizeGB": {
+        "type": "int",
+        "defaultValue": 20
+      },
+      "storageIops": {
+        "type": "int",
+        "defaultValue": 360
+      },
+      "storageAutogrow": {
+        "type": "string",
+        "defaultValue": "Enabled"
+      },
+      "availabilityZone": {
+        "type": "string",
+        "defaultValue": "",
+        "metadata": {
+          "description": "Availability Zone information of the server. (Leave blank for No Preference)."
+        }
+      },
+      "haEnabled": {
+        "type": "string",
+        "defaultValue": "Disabled",
+        "metadata": {
+          "description": "High availability mode for a server : Disabled, SameZone, or ZoneRedundant"
+        }
+      },
+      "standbyAvailabilityZone": {
+        "type": "string",
+        "defaultValue": "",
+        "metadata": {
+          "description": "Availability zone of the standby server."
+        }
+      }
+    },
+    "resources": [
+      {
+        "type": "Microsoft.DBforMySQL/flexibleServers",
+        "apiVersion": "2021-05-01",
+        "location": "[parameters('moodleCommon').location]",
+        "name": "[parameters('moodleCommon').serverName]",
+        "sku": {
+          "name": "[parameters('skuName')]",
+          "tier": "[parameters('serverEdition')]"
+        },
+        "properties": {
+          "version": "[parameters('moodleCommon').mysqlVersion]",
+          "administratorLogin": "[parameters('moodleCommon').dbLogin]",
+          "administratorLoginPassword": "[parameters('moodleCommon').dbLoginPassword]",
+          "availabilityZone": "[parameters('availabilityZone')]",
+          "highAvailability": {
+            "mode": "[parameters('haEnabled')]",
+            "standbyAvailabilityZone": "[parameters('standbyAvailabilityZone')]"
+          },
+          "Storage": {
+            "storageSizeGB": "[parameters('storageSizeGB')]",
+            "iops": "[parameters('storageIops')]",
+            "autogrow": "[parameters('storageAutogrow')]"
+          },
+          "network": {
+            "delegatedSubnetResourceId": "[resourceID('Microsoft.Network/virtualNetworks/subnets', parameters('moodleCommon').vnetName, parameters('moodleCommon').subnetMysqlFlex)]"
+          },
+          "Backup": {
+            "backupRetentionDays": "35",
+            "geoRedundantBackup": "Enabled"
+          }
+        }
+      },
+      {
+        "type": "Microsoft.DBforMySQL/flexibleServers/configurations",
+        "apiVersion": "2021-05-01",
+        "name": "[concat(parameters('moodleCommon').serverName, '/require_secure_transport']",
+        "dependsOn": [
+            "[concat('Microsoft.DBforMySQL/flexibleServers/', parameters('moodleCommon').serverName)]"
+        ],
+        "properties": {
+          "value": "[parameters('moodleCommon').mysqlflexRequireSecureTransport]",
+          "source": "user-override"
+        }
+      }
+    ]
+  }

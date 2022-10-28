@@ -37,12 +37,13 @@
                     "azureBackupSwitch":            { "value": true },
                     "searchType":                   { "value": "elastic" },
                     "sshPublicKey":                 { "value": "[parameters('sshPublicKey')]" },
-                    "mysqlPgresVcores":             { "value": 16 },
-                    "mysqlPgresStgSizeGB":          { "value": 512 },
+                    "mysqlflexSkuName":             { "value": "Standard_E64ds_v4" },
+                    "mysqlflexStgIops":             { "value": 20000 },
+                    "mysqlflexStgSizeGiB":          { "value": 2048 },
                     "fileServerType":               { "value": "azurefiles" },
                     "fileServerDiskSize":           { "value": 1024 },
                     "storageAccountType":           { "value": "Premium_LRS" },
-		    "autoscaleVmSku":		    { "value": "Standard_DS3_v2" }
+		            "autoscaleVmSku":		        { "value": "Standard_DS3_v2" }
                 },
                 "templateLink": {
                     "uri": "[concat(parameters('_artifactsLocation'), 'azuredeploy.json', parameters('_artifactsLocationSasToken'))]"

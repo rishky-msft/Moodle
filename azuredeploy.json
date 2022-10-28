@@ -297,7 +297,7 @@
             "type": "string"
         },
         "mysqlflexStgSizeGiB": {
-            "defaultValue": 1064,
+            "defaultValue": 1024,
             "minValue": 20,
             "maxValue": 16384,
             "metadata": {

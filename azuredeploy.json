@@ -816,6 +816,9 @@
                     },
                     "ctlrPubIp": {
                         "value": "[reference('networkTemplate').outputs.ctlrPubIp.value]"
+                    },
+                    "subnetIdDb": {
+                        "value": "[reference('networkTemplate').outputs.subnetIdDb.value]"
                     }
                 },
                 "templateLink": {
@@ -1315,9 +1318,9 @@
             "sslEnforcement": "[parameters('sslEnforcement')]",
             "storageAccountName": "[tolower(concat('abs',variables('resourceprefix')))]",
             "storageAccountType": "[parameters('storageAccountType')]",
-            "subnetMysqlFlex": "[concat('mysqlflex-subnet-',variables('resourceprefix'))]",
-            "subnetMysqlFlexPrefix": "[concat(variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),7)))]",
-            "subnetMysqlFlexRange": "[concat(variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),7)), '.0/24')]",
+            "subnetDb": "[concat('db-subnet-',variables('resourceprefix'))]",
+            "subnetDbPrefix": "[concat(variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),7)))]",
+            "subnetDbRange": "[concat(variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),7)), '.0/24')]",
             "subnetAppGw": "[concat('appgw-subnet-',variables('resourceprefix'))]",
             "subnetAppGwPrefix": "[concat(variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),6)))]",
             "subnetAppGwRange": "[concat(variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),6)), '.0/24')]",

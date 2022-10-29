@@ -32,6 +32,12 @@
           },
           "type": "string"
       },
+      "subnetIdDb": {
+          "metadata": {
+              "description": "Azure resource ID of the subnet where the Db is to be deployed.(if deployed in vnet)"
+          },
+          "type": "string"
+      },
       "availabilityZone": {
         "type": "string",
         "defaultValue": "",
@@ -73,7 +79,7 @@
             "autoIoScaling": "[parameters('moodleCommon').mysqlflexAutoIoScaling]"
           },
           "network": {
-            "delegatedSubnetResourceId": "[resourceID('Microsoft.Network/virtualNetworks/subnets', parameters('moodleCommon').vnetName, parameters('moodleCommon').subnetMysqlFlex)]"
+            "delegatedSubnetResourceId": "[parameters('subnetIdDb')]"
           },
           "Backup": {
             "backupRetentionDays": "35",

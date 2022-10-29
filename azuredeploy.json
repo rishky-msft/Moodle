@@ -281,7 +281,8 @@
         },
         "mysqlVersion": {
             "allowedValues": [
-                "5.7"
+                "5.7",
+                "8.0.21"
             ],
             "defaultValue": "5.7",
             "metadata": {
@@ -314,6 +315,14 @@
             "type": "int"
         },
         "mysqlflexStgAutogrow": {
+            "allowedValues": [
+                "Enabled",
+                "Disabled"
+            ],
+            "defaultValue": "Enabled",
+            "type": "string"
+        },
+        "mysqlflexAutoIoScaling": {
             "allowedValues": [
                 "Enabled",
                 "Disabled"
@@ -1275,6 +1284,7 @@
             "mysqlflexStgSizeGiB": "[parameters('mysqlflexStgSizeGiB')]",
             "mysqlflexStgIops": "[parameters('mysqlflexStgIops')]",
             "mysqlflexStgAutogrow": "[parameters('mysqlflexStgAutogrow')]",
+            "mysqlflexAutoIoScaling" : "[parameters('mysqlflexAutoIoScaling')]",
             "mysqlflexHaEnabled": "[parameters('mysqlflexHaEnabled')]",
             "mysqlflexRequireSecureTransport":  "[if(equals(parameters('sslEnforcement'),'Enabled'),'ON','OFF')]",
             "nfsByoIpExportPath": "[parameters('nfsByoIpExportPath')]",

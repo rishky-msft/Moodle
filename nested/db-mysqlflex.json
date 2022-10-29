@@ -70,6 +70,7 @@
             "storageSizeGB": "[parameters('moodleCommon').mysqlflexStgSizeGiB]",
             "iops": "[parameters('moodleCommon').mysqlflexStgIops]",
             "autogrow": "[parameters('moodleCommon').mysqlflexStgAutogrow]",
+            "autoIoScaling": "[parameters('moodleCommon').mysqlflexAutoIoScaling]"
           },
           "network": {
             "delegatedSubnetResourceId": "[resourceID('Microsoft.Network/virtualNetworks/subnets', parameters('moodleCommon').vnetName, parameters('moodleCommon').subnetMysqlFlex)]"

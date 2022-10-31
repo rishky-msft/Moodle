@@ -75,7 +75,7 @@
           "Storage": {
             "storageSizeGB": "[parameters('moodleCommon').mysqlflexStgSizeGiB]",
             "autogrow": "[parameters('moodleCommon').mysqlflexStgAutogrow]",
-            "autoIoScaling": "[parameters('moodleCommon').mysqlflexAutoIoScaling]"
+            "AutoIoScaling": "[parameters('moodleCommon').mysqlflexAutoIoScaling]"
           },
           "network": {
             "delegatedSubnetResourceId": "[parameters('subnetIdDb')]"
